@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Object xmlns:mx="http://www.adobe.com/2006/mxml">
+	<mx:Script>
+		<![CDATA[
+			private const userServiceURL:String = "http://localhost/test/users.php";
+		]]>
+	</mx:Script>
+	<mx:ChannelSet id="channels">
+		<mx:AMFChannel url="http://yourhost.tld/services/amf" />
+	</mx:ChannelSet>
+
+	<mx:RemoteObject id="myRemoteObject" destination="c" channelSet="{channels}" />
+
+	<mx:HTTPService id="getUserService" url="{userServiceURL}" 
+					method="POST" resultFormat="object" />
+
+</mx:Object>

@@ -1,0 +1,1 @@
+<mx:Image source="{ModulesManager.getInstance().assets.img10}"/>

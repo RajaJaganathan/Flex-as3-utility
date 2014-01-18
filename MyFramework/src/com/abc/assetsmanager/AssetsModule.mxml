@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/*
+ * Copyright (c) 2010, Andrea Bresolin (http://www.devahead.com)
+ * All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * - redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer;
+ * - redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ * - neither the name of www.devahead.com nor the names of its contributors may
+ *   be used to endorse or promote products derived from this software without
+ *   specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS”
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
+-->
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml"
+	implements="com.devahead.modules.IAssetsModule">
+	
+	<mx:Script>
+		<![CDATA[
+			[Embed(source="assets/10.png")]
+			protected var _img10: Class;
+			public function get img10(): Class { return _img10 };
+
+			[Embed(source="assets/10 (1).png")]
+			protected var _img10_1: Class;
+			public function get img10_1(): Class { return _img10_1 };
+
+			[Embed(source="assets/10 (2).png")]
+			protected var _img10_2: Class;
+			public function get img10_2(): Class { return _img10_2 };
+
+			[Embed(source="assets/10 (3).png")]
+			protected var _img10_3: Class;
+			public function get img10_3(): Class { return _img10_3 };
+
+			[Embed(source="assets/10 (4).png")]
+			protected var _img10_4: Class;
+			public function get img10_4(): Class { return _img10_4 };
+
+			[Embed(source="assets/10 (5).png")]
+			protected var _img10_5: Class;
+			public function get img10_5(): Class { return _img10_5 };
+
+			[Embed(source="assets/10 (6).png")]
+			protected var _img10_6: Class;
+			public function get img10_6(): Class { return _img10_6 };
+
+			[Embed(source="assets/10 (7).png")]
+			protected var _img10_7: Class;
+			public function get img10_7(): Class { return _img10_7 };
+
+			[Embed(source="assets/10 (8).png")]
+			protected var _img10_8: Class;
+			public function get img10_8(): Class { return _img10_8 };
+
+			[Embed(source="assets/10 (9).png")]
+			protected var _img10_9: Class;
+			public function get img10_9(): Class { return _img10_9 };
+
+			[Embed(source="assets/20.png")]
+			protected var _img20: Class;
+			public function get img20(): Class { return _img20 };
+
+			[Embed(source="assets/20 (1).png")]
+			protected var _img20_1: Class;
+			public function get img20_1(): Class { return _img20_1 };
+
+			[Embed(source="assets/20 (2).png")]
+			protected var _img20_2: Class;
+			public function get img20_2(): Class { return _img20_2 };
+
+			[Embed(source="assets/20 (3).png")]
+			protected var _img20_3: Class;
+			public function get img20_3(): Class { return _img20_3 };
+
+			[Embed(source="assets/20 (4).png")]
+			protected var _img20_4: Class;
+			public function get img20_4(): Class { return _img20_4 };
+
+			[Embed(source="assets/20 (5).png")]
+			protected var _img20_5: Class;
+			public function get img20_5(): Class { return _img20_5 };
+
+			[Embed(source="assets/20 (6).png")]
+			protected var _img20_6: Class;
+			public function get img20_6(): Class { return _img20_6 };
+
+			[Embed(source="assets/20 (7).png")]
+			protected var _img20_7: Class;
+			public function get img20_7(): Class { return _img20_7 };
+
+			[Embed(source="assets/20 (8).png")]
+			protected var _img20_8: Class;
+			public function get img20_8(): Class { return _img20_8 };
+
+			[Embed(source="assets/20 (9).png")]
+			protected var _img20_9: Class;
+			public function get img20_9(): Class { return _img20_9 };
+
+			[Embed(source="assets/30.png")]
+			protected var _img30: Class;
+			public function get img30(): Class { return _img30 };
+
+			[Embed(source="assets/30 (1).png")]
+			protected var _img30_1: Class;
+			public function get img30_1(): Class { return _img30_1 };
+
+			[Embed(source="assets/30 (2).png")]
+			protected var _img30_2: Class;
+			public function get img30_2(): Class { return _img30_2 };
+
+			[Embed(source="assets/30 (3).png")]
+			protected var _img30_3: Class;
+			public function get img30_3(): Class { return _img30_3 };
+
+			[Embed(source="assets/30 (4).png")]
+			protected var _img30_4: Class;
+			public function get img30_4(): Class { return _img30_4 };
+
+			[Embed(source="assets/30 (5).png")]
+			protected var _img30_5: Class;
+			public function get img30_5(): Class { return _img30_5 };
+
+			[Embed(source="assets/30 (6).png")]
+			protected var _img30_6: Class;
+			public function get img30_6(): Class { return _img30_6 };
+
+			[Embed(source="assets/30 (7).png")]
+			protected var _img30_7: Class;
+			public function get img30_7(): Class { return _img30_7 };
+
+			[Embed(source="assets/30 (8).png")]
+			protected var _img30_8: Class;
+			public function get img30_8(): Class { return _img30_8 };
+
+			[Embed(source="assets/30 (9).png")]
+			protected var _img30_9: Class;
+			public function get img30_9(): Class { return _img30_9 };
+
+			[Embed(source="assets/40.png")]
+			protected var _img40: Class;
+			public function get img40(): Class { return _img40 };
+
+			[Embed(source="assets/40 (1).png")]
+			protected var _img40_1: Class;
+			public function get img40_1(): Class { return _img40_1 };
+
+			[Embed(source="assets/40 (2).png")]
+			protected var _img40_2: Class;
+			public function get img40_2(): Class { return _img40_2 };
+
+			[Embed(source="assets/40 (3).png")]
+			protected var _img40_3: Class;
+			public function get img40_3(): Class { return _img40_3 };
+
+			[Embed(source="assets/40 (4).png")]
+			protected var _img40_4: Class;
+			public function get img40_4(): Class { return _img40_4 };
+
+			[Embed(source="assets/40 (5).png")]
+			protected var _img40_5: Class;
+			public function get img40_5(): Class { return _img40_5 };
+
+			[Embed(source="assets/40 (6).png")]
+			protected var _img40_6: Class;
+			public function get img40_6(): Class { return _img40_6 };
+
+			[Embed(source="assets/40 (7).png")]
+			protected var _img40_7: Class;
+			public function get img40_7(): Class { return _img40_7 };
+
+			[Embed(source="assets/40 (8).png")]
+			protected var _img40_8: Class;
+			public function get img40_8(): Class { return _img40_8 };
+
+			[Embed(source="assets/40 (9).png")]
+			protected var _img40_9: Class;
+			public function get img40_9(): Class { return _img40_9 };
+
+			[Embed(source="assets/50.png")]
+			protected var _img50: Class;
+			public function get img50(): Class { return _img50 };
+
+			[Embed(source="assets/50 (1).png")]
+			protected var _img50_1: Class;
+			public function get img50_1(): Class { return _img50_1 };
+
+			[Embed(source="assets/50 (2).png")]
+			protected var _img50_2: Class;
+			public function get img50_2(): Class { return _img50_2 };
+
+			[Embed(source="assets/50 (3).png")]
+			protected var _img50_3: Class;
+			public function get img50_3(): Class { return _img50_3 };
+
+			[Embed(source="assets/50 (4).png")]
+			protected var _img50_4: Class;
+			public function get img50_4(): Class { return _img50_4 };
+
+			[Embed(source="assets/50 (5).png")]
+			protected var _img50_5: Class;
+			public function get img50_5(): Class { return _img50_5 };
+
+			[Embed(source="assets/50 (6).png")]
+			protected var _img50_6: Class;
+			public function get img50_6(): Class { return _img50_6 };
+
+			[Embed(source="assets/50 (7).png")]
+			protected var _img50_7: Class;
+			public function get img50_7(): Class { return _img50_7 };
+
+			[Embed(source="assets/50 (8).png")]
+			protected var _img50_8: Class;
+			public function get img50_8(): Class { return _img50_8 };
+
+			[Embed(source="assets/50 (9).png")]
+			protected var _img50_9: Class;
+			public function get img50_9(): Class { return _img50_9 };
+
+			[Embed(source="assets/60.png")]
+			protected var _img60: Class;
+			public function get img60(): Class { return _img60 };
+
+			[Embed(source="assets/60 (1).png")]
+			protected var _img60_1: Class;
+			public function get img60_1(): Class { return _img60_1 };
+
+			[Embed(source="assets/60 (2).png")]
+			protected var _img60_2: Class;
+			public function get img60_2(): Class { return _img60_2 };
+
+			[Embed(source="assets/60 (3).png")]
+			protected var _img60_3: Class;
+			public function get img60_3(): Class { return _img60_3 };
+
+			[Embed(source="assets/60 (4).png")]
+			protected var _img60_4: Class;
+			public function get img60_4(): Class { return _img60_4 };
+
+			[Embed(source="assets/60 (5).png")]
+			protected var _img60_5: Class;
+			public function get img60_5(): Class { return _img60_5 };
+
+			[Embed(source="assets/60 (6).png")]
+			protected var _img60_6: Class;
+			public function get img60_6(): Class { return _img60_6 };
+
+			[Embed(source="assets/60 (7).png")]
+			protected var _img60_7: Class;
+			public function get img60_7(): Class { return _img60_7 };
+
+			[Embed(source="assets/60 (8).png")]
+			protected var _img60_8: Class;
+			public function get img60_8(): Class { return _img60_8 };
+
+			[Embed(source="assets/60 (9).png")]
+			protected var _img60_9: Class;
+			public function get img60_9(): Class { return _img60_9 };
+
+			[Embed(source="assets/70.png")]
+			protected var _img70: Class;
+			public function get img70(): Class { return _img70 };
+
+			[Embed(source="assets/70 (1).png")]
+			protected var _img70_1: Class;
+			public function get img70_1(): Class { return _img70_1 };
+
+			[Embed(source="assets/70 (2).png")]
+			protected var _img70_2: Class;
+			public function get img70_2(): Class { return _img70_2 };
+
+			[Embed(source="assets/70 (3).png")]
+			protected var _img70_3: Class;
+			public function get img70_3(): Class { return _img70_3 };
+
+			[Embed(source="assets/70 (4).png")]
+			protected var _img70_4: Class;
+			public function get img70_4(): Class { return _img70_4 };
+
+			[Embed(source="assets/70 (5).png")]
+			protected var _img70_5: Class;
+			public function get img70_5(): Class { return _img70_5 };
+
+			[Embed(source="assets/70 (6).png")]
+			protected var _img70_6: Class;
+			public function get img70_6(): Class { return _img70_6 };
+
+			[Embed(source="assets/70 (7).png")]
+			protected var _img70_7: Class;
+			public function get img70_7(): Class { return _img70_7 };
+
+			[Embed(source="assets/70 (8).png")]
+			protected var _img70_8: Class;
+			public function get img70_8(): Class { return _img70_8 };
+
+			[Embed(source="assets/70 (9).png")]
+			protected var _img70_9: Class;
+			public function get img70_9(): Class { return _img70_9 };
+
+			[Embed(source="assets/80.png")]
+			protected var _img80: Class;
+			public function get img80(): Class { return _img80 };
+
+			[Embed(source="assets/80 (1).png")]
+			protected var _img80_1: Class;
+			public function get img80_1(): Class { return _img80_1 };
+
+			[Embed(source="assets/80 (2).png")]
+			protected var _img80_2: Class;
+			public function get img80_2(): Class { return _img80_2 };
+
+			[Embed(source="assets/80 (3).png")]
+			protected var _img80_3: Class;
+			public function get img80_3(): Class { return _img80_3 };
+
+			[Embed(source="assets/80 (4).png")]
+			protected var _img80_4: Class;
+			public function get img80_4(): Class { return _img80_4 };
+
+			[Embed(source="assets/80 (5).png")]
+			protected var _img80_5: Class;
+			public function get img80_5(): Class { return _img80_5 };
+
+			[Embed(source="assets/80 (6).png")]
+			protected var _img80_6: Class;
+			public function get img80_6(): Class { return _img80_6 };
+
+			[Embed(source="assets/80 (7).png")]
+			protected var _img80_7: Class;
+			public function get img80_7(): Class { return _img80_7 };
+
+			[Embed(source="assets/80 (8).png")]
+			protected var _img80_8: Class;
+			public function get img80_8(): Class { return _img80_8 };
+
+			[Embed(source="assets/80 (9).png")]
+			protected var _img80_9: Class;
+			public function get img80_9(): Class { return _img80_9 };
+
+			[Embed(source="assets/90.png")]
+			protected var _img90: Class;
+			public function get img90(): Class { return _img90 };
+
+			[Embed(source="assets/90 (1).png")]
+			protected var _img90_1: Class;
+			public function get img90_1(): Class { return _img90_1 };
+
+			[Embed(source="assets/90 (2).png")]
+			protected var _img90_2: Class;
+			public function get img90_2(): Class { return _img90_2 };
+
+			[Embed(source="assets/90 (3).png")]
+			protected var _img90_3: Class;
+			public function get img90_3(): Class { return _img90_3 };
+
+			[Embed(source="assets/90 (4).png")]
+			protected var _img90_4: Class;
+			public function get img90_4(): Class { return _img90_4 };
+
+			[Embed(source="assets/90 (5).png")]
+			protected var _img90_5: Class;
+			public function get img90_5(): Class { return _img90_5 };
+
+			[Embed(source="assets/90 (6).png")]
+			protected var _img90_6: Class;
+			public function get img90_6(): Class { return _img90_6 };
+
+			[Embed(source="assets/90 (7).png")]
+			protected var _img90_7: Class;
+			public function get img90_7(): Class { return _img90_7 };
+
+			[Embed(source="assets/90 (8).png")]
+			protected var _img90_8: Class;
+			public function get img90_8(): Class { return _img90_8 };
+
+			[Embed(source="assets/90 (9).png")]
+			protected var _img90_9: Class;
+			public function get img90_9(): Class { return _img90_9 };
+
+			[Embed(source="assets/100.png")]
+			protected var _img100: Class;
+			public function get img100(): Class { return _img100 };
+
+			[Embed(source="assets/100 (1).png")]
+			protected var _img100_1: Class;
+			public function get img100_1(): Class { return _img100_1 };
+
+			[Embed(source="assets/100 (2).png")]
+			protected var _img100_2: Class;
+			public function get img100_2(): Class { return _img100_2 };
+
+			[Embed(source="assets/100 (3).png")]
+			protected var _img100_3: Class;
+			public function get img100_3(): Class { return _img100_3 };
+
+			[Embed(source="assets/100 (4).png")]
+			protected var _img100_4: Class;
+			public function get img100_4(): Class { return _img100_4 };
+
+			[Embed(source="assets/100 (5).png")]
+			protected var _img100_5: Class;
+			public function get img100_5(): Class { return _img100_5 };
+
+			[Embed(source="assets/100 (6).png")]
+			protected var _img100_6: Class;
+			public function get img100_6(): Class { return _img100_6 };
+
+			[Embed(source="assets/100 (7).png")]
+			protected var _img100_7: Class;
+			public function get img100_7(): Class { return _img100_7 };
+
+			[Embed(source="assets/100 (8).png")]
+			protected var _img100_8: Class;
+			public function get img100_8(): Class { return _img100_8 };
+
+			[Embed(source="assets/100 (9).png")]
+			protected var _img100_9: Class;
+			public function get img100_9(): Class { return _img100_9 };
+		]]>
+	</mx:Script>
+	
+</mx:Module>

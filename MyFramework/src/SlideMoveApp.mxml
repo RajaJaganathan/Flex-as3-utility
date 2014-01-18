@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" 
+					   xmlns:s="library://ns.adobe.com/flex/spark" 
+					   xmlns:mx="library://ns.adobe.com/flex/mx"
+					   currentState="hidePanel">
+	<s:layout>
+		<s:BasicLayout/>
+	</s:layout>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.events.EffectEvent;
+			
+			[Bindable]
+			private var matrixDisplayObject:Matrix = new Matrix();
+			
+			private function changeState():void
+			{
+				currentState=(currentState == 'showPanel') ? 'hidePanel' : 'showPanel';
+				lblCurrentState.text=currentState;
+			}
+			
+			private function onEffectEndHandler():void
+			{
+				lblCurrentState.text="onEffectEndHandler :: " + currentState;
+			}
+			
+			private function onEffectUpdateHandler(event:EffectEvent):void
+			{
+				//grgRightSidePanel.validateDisplayList();
+				grgRightSidePanel.validateNow();
+			}
+			
+			private function onEffectStartHandler(event:EffectEvent):void
+			{
+			}
+		]]>
+	</fx:Script>
+	
+	
+	<s:states>
+		<s:State name="showPanel"/>
+		<s:State name="hidePanel"/>
+	</s:states>
+	
+	<s:transitions>
+		<s:Transition fromState="hidePanel"
+					  toState="showPanel"
+					  autoReverse="true">
+			<s:Parallel>
+				<s:Move target="{grgRightSidePanel}" disableLayout="true"
+						duration="500" effectStart="onEffectStartHandler(event)"
+						effectEnd="onEffectEndHandler()"/>
+			</s:Parallel>
+		</s:Transition>
+		<s:Transition fromState="showPanel"
+					  toState="hidePanel"
+					  autoReverse="true">
+			<s:Parallel>
+				<s:Move target="{grgRightSidePanel}" disableLayout="true"
+						duration="500" 
+						effectStart="onEffectStartHandler(event)"
+						effectUpdate="onEffectUpdateHandler(event)"
+						effectEnd="onEffectEndHandler()"/>
+			</s:Parallel>
+		</s:Transition>
+	</s:transitions>
+	
+	
+	<s:Button x="22"
+			  y="234"
+			  id="btnShow"
+			  label="Transitions with interrupt"
+			  click="changeState()"/>
+	
+	<s:Label x="300"
+			 y="250"
+			 id="lblCurrentState"
+			 fontWeight="bold"
+			 fontSize="20"/>
+	
+	
+	<s:Group id="grgRightSidePanel" cacheAsBitmap="true" cachePolicy="on" cacheAsBitmapMatrix="{matrixDisplayObject}"
+			 x.showPanel="{Capabilities.screenResolutionX - grgRightSidePanel.width}"
+			 y.showPanel="0"
+			 x.hidePanel="{Capabilities.screenResolutionX}"
+			 y.hidePanel="0"
+			 width="250"
+			 minWidth="300"
+			 height="{Capabilities.screenResolutionY}">
+		<s:layout>
+			<s:BasicLayout/>
+		</s:layout>
+		<s:List id="listCom"
+				height="100%"
+				width="100%" contentBackgroundColor="0x5C7155" contentBackgroundAlpha="0.4">
+			<!-- click="enableMaskContainer(false,grgRightSidePanel)" -->
+			<s:dataProvider>
+				<mx:ArrayCollection>
+					<fx:String>Flex</fx:String>
+					<fx:String>Flash Builder</fx:String>
+					<fx:String>Flash</fx:String>
+					<fx:String>Director</fx:String>
+					<fx:String>Dreamweaver</fx:String>
+					<fx:String>ColdFusion</fx:String>
+					<fx:String>Illustrator</fx:String>
+					<fx:String>PhotoShop</fx:String>
+					<fx:String>Flex</fx:String>
+					<fx:String>Flash Builder</fx:String>
+					<fx:String>Flash</fx:String>
+					<fx:String>Director</fx:String>
+					<fx:String>Dreamweaver</fx:String>
+					<fx:String>ColdFusion</fx:String>
+					<fx:String>Illustrator</fx:String>
+					<fx:String>PhotoShop</fx:String>
+					<fx:String>Flex</fx:String>
+					<fx:String>Flash Builder</fx:String>
+					<fx:String>Flash</fx:String>
+					<fx:String>Director</fx:String>
+					<fx:String>Dreamweaver</fx:String>
+					<fx:String>ColdFusion</fx:String>
+					<fx:String>Illustrator</fx:String>
+					<fx:String>PhotoShop</fx:String>
+				</mx:ArrayCollection>
+			</s:dataProvider>
+		</s:List>
+	</s:Group>
+	
+</s:WindowedApplication>

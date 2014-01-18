@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<bloom:ContextMenu
+	xmlns="http://ns.adobe.com/mxml/2009"
+	xmlns:s="library://ns.adobe.com/flex/spark"
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	xmlns:style="http://ns.viatropos.org/style/2010"
+	xmlns:bloom="http://ns.viatropos.org/bloom/2010">
+	
+	<Script>
+		<![CDATA[
+			import flash.display.DisplayObject;
+			import flash.events.ContextMenuEvent;
+			import flash.external.ExternalInterface;
+			import flash.system.System;
+			
+			import bloom.core.ILinkable;
+			import bloom.utils.FileUtil;
+			import style.utils.DisplayUtil;
+			import spark.components.Button;
+			
+			import mx.managers.SystemManagerGlobals;
+			
+			public var currentTarget:DisplayObject;
+			
+			override public function attach(target:Object):void
+			{
+				contextMenuItems = safariPageItems;
+				super.attach(target);
+			}
+			import flash.geom.Point;
+			var v:*;
+			override protected function menuSelectHandler(event:ContextMenuEvent):void
+			{
+				// eventually check for browser type
+				super.menuSelectHandler(event);
+				currentTarget = event.mouseTarget;
+				var main:* = target.stage.getObjectsUnderPoint(new Point(target.mouseX, target.mouseY));
+				var text:* = main[main.length - 1];
+				try {
+					var valu:* = text.textBlockBeginIndex;
+					v  = text;
+					TextUtil.traverse(main[main.length - 2].textFlow, addLocalLinkListener);
+				} catch (e:*) {}
+				setCurrentMenu(currentTarget);
+			}
+			import style.utils.TextUtil;
+			import flashx.textLayout.elements.LinkElement;
+		
+		protected function addLocalLinkListener(flowElement:*):void
+		{
+			if (!(flowElement is LinkElement))
+				return;
+			var start:* = flowElement.getAbsoluteStart();
+			var line:* = flowElement.getTextFlow().flowComposer.findLineAtPosition(start).getTextLine();
+			var end:* = start + flowElement.textLength;
+			if (line == v)
+				trace(flowElement.toString());
+			else
+				return;
+			
+			var url:String = (flowElement as LinkElement).href;
+			trace("URL! " + url);
+		}
+			
+			protected function setCurrentMenu(target:Object):void
+			{
+				url = null;
+				var link:String = linkFor();
+				if (target is Button || target is ILinkable)
+				{
+					url = target is ILinkable ? (target as ILinkable).linkFor(currentTarget) : null;
+					contextMenuItems = safariImageItems;
+				}
+				else
+				{
+					contextMenuItems = safariPageItems;
+				}
+			}
+			protected var url:String;
+			protected function linkFor():String
+			{
+				if (!url)
+				{
+					DisplayUtil.walkDisplayObjectsDown(this.target, function(child:*):Boolean
+					{
+						if (!(child is ILinkable))
+							return false;
+						
+						url = (child as ILinkable).linkFor(currentTarget);
+						return url ? true : false;
+					});
+				}
+				return SWFAddress.getBaseURL() + "/" + url;
+			}
+			
+			protected function fullLinkFor():String
+			{
+				return SWFAddress.getBaseURL() + "/" + linkFor();
+			}
+			
+			protected function copyLink():void
+			{
+				var url:String = linkFor();
+				System.setClipboard(url);
+			}
+			
+			protected function saveImage():void
+			{
+				var url:String = currentTarget && "id" in currentTarget ? currentTarget["id"] : null;
+				url ||= currentTarget.name;
+				//url ||= Style.getUnqualifiedClassName(currentTarget) + "_Icon";
+				var nodes:Array = url.split(".");
+				url = nodes[nodes.length - 1];
+				
+				FileUtil.saveSnapshot(currentTarget, url);
+			}
+			
+		]]>
+	</Script>
+	
+    <Declarations>
+		<!-- safari menu items -->
+		<Array id="safariPageItems">
+			<bloom:ContextMenuItem caption="Back..." menuItemSelect="{Bloom.back()}"/>
+			<bloom:ContextMenuItem caption="Reload" menuItemSelect="{Bloom.reload()}"/>
+			<bloom:ContextMenuItem caption="Open in Dashboard..." menuItemSelect="{}"/>
+			<bloom:ContextMenuItem caption="View Source" menuItemSelect="{ExternalInterface.call('showSource')}"
+				separatorBefore="true"/>
+			<bloom:ContextMenuItem caption="Save Page As..." menuItemSelect="{ExternalInterface.call('showSource')}"/>
+			<bloom:ContextMenuItem caption="Print Page" menuItemSelect="{ExternalInterface.call('showSource')}"/>
+			<bloom:ContextMenuItem caption="Save Image As..." menuItemSelect="{saveImage()}"/>
+		</Array>
+		<Array id="safariLinkItems">
+			<bloom:ContextMenuItem caption="Open Link in New Window" menuItemSelect="{ExternalInterface.call('showSource')}"/>
+			<bloom:ContextMenuItem caption="Open Link in New Tab" menuItemSelect="{ExternalInterface.call('showSource')}"/>
+			<bloom:ContextMenuItem caption="Download Linked File" menuItemSelect="{ExternalInterface.call('showSource')}"
+				separatorBefore="true"/>
+			<bloom:ContextMenuItem caption="Download Linked File As..." menuItemSelect="{ExternalInterface.call('showSource')}"/>
+			<bloom:ContextMenuItem caption="Add Link to Bookmarks..."
+				menuItemSelect="{ExternalInterface.call('bookmarksite', 'Lances Bookmark', fullLinkFor())}"/>
+			<bloom:ContextMenuItem caption="Copy Link..." menuItemSelect="{copyLink()}"
+				separatorBefore="true"/>
+		</Array>
+		<Array id="safariImageItems">
+			<bloom:ContextMenuItem caption="Open Link in New Window" menuItemSelect="{ExternalInterface.call('showSource')}"/>
+			<bloom:ContextMenuItem caption="Open Link in New Tab" menuItemSelect="{ExternalInterface.call('showSource')}"/>
+			<bloom:ContextMenuItem caption="Download Linked File" menuItemSelect="{ExternalInterface.call('showSource')}"
+				separatorBefore="true"/>
+			<bloom:ContextMenuItem caption="Download Linked File As..." menuItemSelect="{ExternalInterface.call('showSource')}"/>
+			<bloom:ContextMenuItem caption="Add Link to Bookmarks..."
+				menuItemSelect="{ExternalInterface.call('bookmarksite', 'Lances Bookmark', linkFor())}"/>
+			<bloom:ContextMenuItem caption="Copy Link..." menuItemSelect="{copyLink()}"
+				separatorBefore="true"/>
+			<bloom:ContextMenuItem caption="Open Image in New Window" menuItemSelect="{ExternalInterface.call('showSource')}"
+				separatorBefore="true"/>
+			<bloom:ContextMenuItem caption="Open Image in New Tab" menuItemSelect="{ExternalInterface.call('showSource')}"/>
+			<bloom:ContextMenuItem caption="Save Image to the Desktop" menuItemSelect="{saveImage()}"
+				separatorBefore="true"/>
+			<bloom:ContextMenuItem caption="Save Image As..." menuItemSelect="{ExternalInterface.call('showSource')}"/>
+			<!-- too hardcore to implement
+			<bloom:ContextMenuItem caption="Add Image to iPhoto Library" menuItemSelect="{ExternalInterface.call('showSource')}"/>
+			<bloom:ContextMenuItem caption="Use Image as Desktop Picture" menuItemSelect="{ExternalInterface.call('showSource')}"/>
+			-->
+			<bloom:ContextMenuItem caption="Copy Image Address" menuItemSelect="{ExternalInterface.call('showSource')}"
+				separatorBefore="true"/>
+			<bloom:ContextMenuItem caption="Copy Image" menuItemSelect="{ExternalInterface.call('showSource')}"/>
+		</Array>
+		
+		<!-- firefox menu items -->
+		<Array id="firefoxItems">
+			<bloom:ContextMenuItem caption="View Source" menuItemSelect="{ExternalInterface.call('showSource')}"/>
+		</Array>
+    </Declarations>
+
+</bloom:ContextMenu>

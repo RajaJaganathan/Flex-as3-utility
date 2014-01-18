@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" 
+					   xmlns:s="library://ns.adobe.com/flex/spark" 
+					   xmlns:mx="library://ns.adobe.com/flex/mx"
+					   creationComplete="initApp()" xmlns:controls="com.abc.controls.*">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+			import com.abc.*;
+			import com.abc.RemoteService.*;
+			import com.abc.RemoteService.RemoteServiceConfig;
+			import com.abc.RemoteService.RemoteServices;
+			import com.abc.dao.IContactDAO;
+			import com.abc.daoimpl.ContactDAO;
+			import com.abc.skins.AutoCompleteSkin;
+			import com.abc.workflow.WorkFlowState;
+			import com.abc.dao.IContactDAO;
+			
+			import mx.collections.ArrayList;
+			
+			private function setMe():void
+			{
+				//cmb.selectedItem = "AL";
+				//cmd.selec
+			}
+			
+			import mx.utils.ObjectUtil;
+			import mx.controls.Alert;
+			import mx.rpc.events.FaultEvent;
+			import mx.rpc.events.ResultEvent;
+			
+			import com.abc.RemoteService.*;
+			
+			
+			private var _remoteService:RemoteServices = new RemoteServices();
+			
+			private function initApp():void
+			{
+				_remoteService.configure = RemoteServiceConfig;
+			}
+			
+			private function getUsers():void
+			{
+				var params:Object = { "id": 1, "call": "GetAll" };
+				// 	To call server side method GetAll() becuase http service can't invoke server side method directly                
+				_remoteService.executeHttpService("getUserService", params, resultHandler, faultHandler);
+				dao.sayHello();
+			}
+			
+			private function resultHandler(event:ResultEvent):void
+			{
+				var resultString:Object = event.result as Object;
+				
+				viewProfile.selectedIndex = WorkFlowState.VIEW_PROFILE_ACCOUNTS;
+				
+				Alert.show("Hi Great App :: " + ObjectUtil.toString(resultString));
+			}
+			
+			private function faultHandler(event:FaultEvent):void
+			{
+				Alert.show("Oops ! something went wrong :: " + event.message.toString());
+				
+				for (var i:int = 0; i < 8; i++)
+				{
+					trace("Hello World")
+				}
+				
+			}
+			private var dao:com.abc.dao.IContactDAO = new ContactDAO();
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>
+	
+	<s:ComboBox x="200" y="200" width="120"
+				dataProvider="{new ArrayList(['raja','sasi','ravi','kumar','madhu'])}"
+				skinClass="com.abc.skins.AutoCompleteSkin"/>
+	<controls:ExtendedComboBox id="cmb">
+		<mx:ArrayCollection>
+			<fx:String>AK</fx:String>
+			<fx:String>AL</fx:String>
+			<fx:String>AR</fx:String>
+		</mx:ArrayCollection>
+	</controls:ExtendedComboBox>
+	
+	<mx:ViewStack id="viewProfile">
+		<s:NavigatorContent>
+			
+		</s:NavigatorContent>
+		<s:NavigatorContent>
+			
+		</s:NavigatorContent>
+		<s:NavigatorContent>
+			
+		</s:NavigatorContent>
+	</mx:ViewStack>
+	
+	<s:Button label="click" buttonMode="true"
+			  click="setMe();getUsers();"/>
+	
+
+</s:WindowedApplication>

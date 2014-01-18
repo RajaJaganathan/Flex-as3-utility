@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+			import com.abc.workflow.WorkFlowState;
+			
+			import mx.collections.ArrayCollection;
+			import mx.events.ItemClickEvent;
+			[Bindable]
+			public var myData:ArrayCollection = new ArrayCollection();
+			public var orgData:ArrayCollection = new ArrayCollection();
+			[Bindable]
+			public var nav:ArrayCollection = new ArrayCollection();
+			private var index:int = 0;
+			private var page:int = 25;              
+			private var paging:Boolean = true;
+			
+			private function InitApp():void {
+				for( var x:uint = 1; x <= 500; x++ ) {
+					var obj:Object = new Object();
+					obj.Id = x.toString();
+					obj.Name = "Column " + x.toString();
+					obj.Street = "5555 Street";
+					obj.Title = "CEO";
+					obj.City = "El Paso";
+					orgData.addItem(obj);
+				}
+				refreshDataProvider(0);				
+			}
+			
+			private function navPage(d:int):void {
+				index += d;
+				refreshDataProvider(index);     
+			}
+			
+			private function refreshDataProvider(start:int):void {
+				if (paging == true) {
+					page = 25;
+					myData = new ArrayCollection(orgData.source.slice(start,start+page));
+				}
+				else {
+					index = 0;
+					page = 500;
+					myData = new ArrayCollection(orgData.source);                           
+				}
+				down.enabled = index > 0;
+				up.enabled = index + page < orgData.length;
+				lbl.text = index.toString() + ' to ' + (index + page).toString() + ' of ' + orgData.length;                     
+			}
+			
+			private function togglePaging():void {
+				paging = !paging;
+				toggle.label = paging.toString();
+				refreshDataProvider(index);
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<mx:DataGrid id="dg" dataProvider="{myData}" width="510" height="202">
+		<mx:columns>				
+			<mx:DataGridColumn dataField="Id" headerText="Id"/>
+			<mx:DataGridColumn dataField="Name" headerText="Name"/>
+			<mx:DataGridColumn dataField="Street" headerText="Street"/>
+			<mx:DataGridColumn dataField="Title" headerText="Title"/>
+			<mx:DataGridColumn dataField="City" headerText="City"/>
+		</mx:columns>
+		
+	</mx:DataGrid>
+	<mx:Button x="10" y="210" label="&lt;" click="navPage(-25);" id="down"/>
+	<mx:Button x="216" y="210" label="&gt;" click="navPage(25);" id="up"/>
+	<mx:Label x="58" y="212" text="page" width="150" id="lbl"/>
+	<mx:Button x="264" y="210" label="true" id="toggle" click="togglePaging();"/>
+	
+</s:Group>

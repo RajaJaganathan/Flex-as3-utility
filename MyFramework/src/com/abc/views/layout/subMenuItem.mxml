@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" styleName="subMenuItem" height="30">
+	<mx:Script>
+		<![CDATA[
+			public var moduleName:String;
+		]]>
+	</mx:Script>
+	<mx:Label text="sub_2" paddingLeft="5" paddingRight="5"/>
+</mx:Canvas>

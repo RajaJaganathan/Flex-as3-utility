@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="300"
+		 creationComplete="init()">
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.utils.ArrayUtil;
+			
+			
+			private var fileReferenceList:FileReferenceList;
+			private var fileReference:FileReferenceList;
+			
+			[Bindable]
+			private var arrayCollection:ArrayCollection
+			private function init():void
+			{
+				fileReferenceList = new FileReferenceList();
+				arrayCollection = new ArrayCollection();
+				fileReferenceList.addEventListener(Event.SELECT, selectHandler);
+			}
+			
+			private function selectHandler(event:Event):void
+			{
+				var fileList:Array = fileReferenceList.fileList;
+				for (var i:Number=0; i<fileList.length; i++)
+				{
+					var file:FileReference = FileReference(fileList[i]);
+					arrayCollection.addItem({name:file.name, size:file.size, object:file})
+				}
+			}
+			private function browse(event:MouseEvent):void
+			{
+				arrayCollection.removeAll();
+				arrayCollection.refresh();
+				var imagesFilter:FileFilter = new FileFilter("Images", "*.jpg;*.gif;*.png");
+				fileReferenceList.browse([imagesFilter]);
+			}
+			
+			private function upload(event:MouseEvent):void
+			{
+				var fileList:Array = fileReferenceList.fileList;
+				for (var i:Number=0; i<fileList.length; i++)
+				{
+					var urlRequest:URLRequest = new URLRequest("upload.php");
+					var file:FileReference = FileReference(fileList[i]);
+					file.upload(urlRequest);
+				}
+			}
+		]]>
+	</fx:Script>
+	<mx:VBox>
+		<mx:DataGrid id="dataGrid" width="500" dataProvider="{arrayCollection}" >
+			<mx:columns>
+				<mx:DataGridColumn headerText="File Name" dataField="name" width="100"/>
+				<mx:DataGridColumn headerText="Size" dataField="size" width="30"/>
+				<!--<mx:DataGridColumn headerText="Progress" dataField="object" width="150">
+				<mx:itemRenderer>
+				<mx:Component>
+				<mx:HBox verticalAlign="middle">
+				<mx:ProgressBar label="" height="6" source="{data.object}"/>	
+				</mx:HBox>
+				</mx:Component>
+				</mx:itemRenderer>
+				</mx:DataGridColumn>-->
+			</mx:columns>
+		</mx:DataGrid>
+		<mx:HBox width="100%">
+			<mx:Button label="Browse" click="browse(event)"/>
+			<mx:Spacer width="100%"/>
+			<mx:Button label="Upload" click="upload(event)"/>
+		</mx:HBox>
+	</mx:VBox>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+</s:Group>

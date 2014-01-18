@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<properties>
+	<property>
+		<name>UploadHandler</name>
+		<value>http://localhost/upload/UploadHandler</value>
+	</property>
+	<property>
+		<name>UploadFolder</name>
+		<value>http://localhost/upload/uploads/</value>
+	</property>
+</properties>

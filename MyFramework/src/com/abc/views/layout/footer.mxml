@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="30" horizontalGap="0" horizontalAlign="center"
+		 backgroundColor="#1E56B5" color="#FFFFFF" verticalAlign="middle">
+	<mx:LinkButton label="Support" textRollOverColor="#FFFFFF" textSelectedColor="#FFFFFF" alpha="0" />
+	<mx:Label fontWeight="bold" text="|" paddingLeft="5" paddingRight="5" />
+	<mx:LinkButton label="Privacy Policy" textRollOverColor="#FFFFFF" textSelectedColor="#FFFFFF" alpha="0" />
+	<mx:Label fontWeight="bold" text="|" paddingLeft="5" paddingRight="5" />
+	<mx:LinkButton label="Terms of Use" textRollOverColor="#FFFFFF" textSelectedColor="#FFFFFF" alpha="0" />
+	<mx:Label fontWeight="bold" text="|" paddingLeft="5" paddingRight="5" />
+	<mx:LinkButton label="We're Green" textRollOverColor="#FFFFFF" textSelectedColor="#FFFFFF" alpha="0" />
+</mx:HBox>

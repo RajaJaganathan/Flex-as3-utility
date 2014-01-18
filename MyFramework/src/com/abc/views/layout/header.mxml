@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" xmlns:phd="phd.*"
+		   creationComplete="//populateMenuItems();">
+
+	<mx:Script>
+		<![CDATA[
+			import mx.core.Application;
+			import mx.controls.Alert;
+			import mx.controls.Button;
+
+			[Bindable]			
+			private var __menuItems:XMLList = new XMLList();
+			[Bindable]			
+			private var __mainApp:* = Application.application;
+			[Event]			
+			public function set menuItemData(__data:XMLList):void
+			{
+				__menuItems = __data;
+				populateMenuItems();
+			}
+
+			private function populateMenuItems():void
+			{
+				menuBarContainer.removeAllChildren();				
+				for(var i:Number = 0;i < __menuItems.length();i++)
+				{
+					var __menuItem:Button = new Button();
+					__menuItem.label = __menuItems[i].@name;
+					__menuItem.name = __menuItems[i].@module;	
+					menuBarContainer.addChild(__menuItem);
+					__menuItem.styleName = "menuItem";
+					__menuItem.height = 30;
+					__menuItem.width = 110;
+					__menuItem.addEventListener(MouseEvent.ROLL_OVER,menuRollOverHandler);
+					__menuItem.addEventListener(MouseEvent.ROLL_OUT,menuRollOutHandler);
+					__menuItem.addEventListener(MouseEvent.CLICK,menuClickHandler);
+				}
+				menuBarContainer.getChildAt(0).dispatchEvent( new MouseEvent(MouseEvent.CLICK));
+			}
+
+			private function menuRollOverHandler(__targetObj:Event):void
+			{
+				if(Button(__targetObj.currentTarget).styleName != "menuItemSelected")
+					Button(__targetObj.currentTarget).styleName = "menuItemRollOver";
+			}
+			private function menuRollOutHandler(__targetObj:Event):void
+			{
+				if(Button(__targetObj.currentTarget).styleName != "menuItemSelected")
+					Button(__targetObj.currentTarget).styleName = "menuItem";
+			}
+			private function menuClickHandler(__targetObj:Event):void
+			{
+				var parentObj:HBox = __targetObj.target.parent as HBox;
+				for(var i:Number = 0; i < parentObj.getChildren().length; i++)
+				{
+					Button(parentObj.getChildAt(i)).styleName = "menuItem";
+				}
+				Button(__targetObj.currentTarget).styleName = "menuItemSelected";
+				Application.application.menuSelectedHandler(__targetObj);
+				Application.application.loadModule(Button(__targetObj.currentTarget).name);
+			}
+
+			public function doLogout():void
+			{
+				var __obj:Object = new Object();
+				Application.application.__responder = new Responder(logout,faultHandler);
+				Application.application.__netconnection.connection.call("ci.action.execute",Application.application.__responder,'member/login/logoutUser',__obj);
+				__mainApp.requestInProgress = true;
+			}
+
+			private function logout(__result:String):void
+			{
+				var __resultXML:XML = new XML(__result);
+				var url:URLRequest = new URLRequest();
+				url.url = __resultXML.redirect;
+				navigateToURL(url,"_self");
+			}
+
+			private function faultHandler(fault:Object):void
+			{
+				Alert.show(fault.toString(),"Fault");
+			}
+			public function showUserName():void
+			{		
+				var __obj:Object = new Object();	
+				Application.application.__responder = new Responder(resultHandler,faultHandler);	
+				Application.application.__netconnection.connection.call("ci.action.execute",Application.application.__responder,'member/business/dashboard',__obj);
+			}
+
+			public function resultHandler(__result:String):void
+			{
+				var __resultXML:XML = new XML(__result);
+				username.label = __resultXML.users.info.fullName;
+				lastLogin.text = __resultXML.users.info.lastLoginAt;
+				__mainApp.associatedName.text = "Associated with: " +__resultXML.users.info.name;
+				__mainApp.sessionID = __resultXML.users.info.id.toString();
+				__mainApp.businessEmailId = __resultXML.users.info.email;
+			}
+
+		]]>
+	</mx:Script>
+
+	<!--<mx:Image styleName="logo" width="186" height="117" source="@Embed('../assets/logo.png')" top="20" left="20"/>
+	<mx:Image source="@Embed('../assets/bannerRImg.png')" width="210" height="143" right="0" bottom="0"/> -->
+	<mx:Image source="@Embed('../assets/header.png')" width="1000" height="147" right="0" bottom="0"/> 
+	<mx:HBox id="menuBarContainer" x="10" horizontalGap="2" horizontalScrollPolicy="off" verticalScrollPolicy="off" bottom="-2">
+
+	</mx:HBox>
+	<mx:Canvas right="10" top="5" backgroundColor="#ffffff" borderThickness="1" borderStyle="solid" cornerRadius="8" backgroundAlpha="0.53" width="324" height="69">
+		<mx:VBox paddingBottom="5" paddingLeft="10" paddingRight="10" paddingTop="5" width="97%" horizontalCenter="0" verticalCenter="0">
+			<mx:HBox width="302">
+				<mx:HBox width="100%" height="20">
+					<mx:Text text="User:" id="welcomeLabel" width="78" textAlign="left" paddingLeft="12" />
+					<mx:LinkButton id="username" textAlign="left" height="20" width="152" />
+					<!--<mx:LinkButton id="username" label="" textAlign="left" alpha="0" height="20" visible="{(__mainApp.returnBackPanel.visible)?false:true}" width="152"/> -->
+				</mx:HBox>
+				<mx:LinkButton label="Logout" textDecoration="underline" right="20" id="logoutLink" click="doLogout()" height="20" visible="{(__mainApp.returnBackPanel.visible)?false:true}" width="52"/>
+			</mx:HBox>
+			<mx:HBox width="100%">
+				<mx:Label text="Last Login:" textAlign="right" width="80"/>
+				<mx:Text id="lastLogin" text="12-02-2009 07:49:05 PM"/>
+			</mx:HBox>
+		</mx:VBox>		
+	</mx:Canvas>		
+</mx:Canvas>

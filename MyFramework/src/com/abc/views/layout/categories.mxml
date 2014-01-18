@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:layout="layout.*">
+	<mx:Script>
+		<![CDATA[
+			import mx.controls.LinkBar;
+			import mx.controls.Alert;
+			[Bindable]
+			private var __categoryData:XMLList = new XMLList();
+			[Bindable]
+			private var __sel:Number = 0;
+			private var timer:Timer = new Timer(500,1);
+			public function set categoryData(__data:XMLList):void
+			{
+				//__categoryData = __data;				
+			}
+			private function itemClickHandler(evn:Event):void
+			{
+				//timer.addEventListener(TimerEvent.TIMER_COMPLETE,setSelectedIndex);
+				//timer.start();
+				//__sel = tes.selectedIndex as int;
+				//LinkBar(evn.target).selectedIndex = __sel;
+			/*for(var i = 0; i < 15; i++)
+			{
+				if( i == __sel)
+					LinkBar(evn.target).selectedIndex = i;
+			} */
+
+			}
+			private function setSelectedIndex(event:TimerEvent):void
+			{
+				//	tes.selectedIndex = Math.random()*5;
+				Alert.show(__sel.toString());	
+			}
+		]]>
+	</mx:Script>
+	<!--<mx:ViewStack selectedIndex="0">
+		<mx:LinkBar id="tes" dataProvider="{__categoryData}" itemClick="{itemClickHandler(event);}"/>
+	</mx:ViewStack> -->
+	<!--<layout:ExtLinkBar dataProvider="{__categoryData}"/> -->
+	<!--<mx:LinkBar id="mylinkBar" dataProvider="{__categoryData}" left="10" top="30" />
+	<mx:ViewStack id="linkbarProvider" top="60" left="0">
+		<mx:Box label="Link 1" />
+		<mx:Box label="Link 2" />
+		<mx:Box label="Link 3" />
+	</mx:ViewStack> -->
+</mx:Canvas>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" height="25" width="100%"
+		   horizontalScrollPolicy="off" verticalScrollPolicy="off">
+	<mx:Script>
+		<![CDATA[
+			import mx.core.Application;
+			import flash.utils.getDefinitionByName;
+			import mx.controls.Alert;
+			import mx.controls.Label;
+			[Bindable]
+			private var __subMenuData:XMLList;
+			public function set subMenuData(__data:XMLList):void
+			{
+				__subMenuData = __data;
+				buildProperties();
+			}
+			private function buildProperties():void
+			{
+				subMenuBar.removeAllChildren();
+				if( __subMenuData.length() > 0)
+				{
+					for(var i:Number = 0; i < __subMenuData.length(); i++)
+					{
+						var __subMenuItm:subMenuItem = new subMenuItem();
+						subMenuBar.addChild(__subMenuItm);
+						__subMenuItm.moduleName = __subMenuData[i].@module.toString();
+
+						/* if(__subMenuItm.moduleName == "viewPaymentServices")
+						{
+							trace('INEX: ' + i);
+						}
+
+						trace('Module NAme ' + __subMenuItm.moduleName); */
+
+						if(i != __subMenuData.length() - 1)
+						{
+							var __subMenuSep:subMenuSeparator = new subMenuSeparator();
+							subMenuBar.addChild(__subMenuSep);
+						}
+
+						Label(__subMenuItm.getChildAt(0)).text = __subMenuData[i].@name.toString();
+						__subMenuItm.addEventListener(MouseEvent.ROLL_OUT,subMenuRollOutHandler);
+						__subMenuItm.addEventListener(MouseEvent.ROLL_OVER,subMenuRollOverHandler);
+						__subMenuItm.addEventListener(MouseEvent.CLICK,subMenuClickHandler);											
+
+					}
+					subMenuBar.getChildAt(0).dispatchEvent( new MouseEvent(MouseEvent.CLICK));
+				}
+			}
+			private function subMenuClickHandler(evnt:Event):void
+			{
+				var __parentObj:HBox = evnt.currentTarget.parent as HBox;
+				for(var j:Number = 0; j < __parentObj.getChildren().length; j++)
+				{
+					Canvas(__parentObj.getChildAt(j)).styleName = "subMenuItem";
+				}
+				Canvas(evnt.currentTarget).styleName = "subMenuItemSelected";
+				Application.application.loadModule(evnt.currentTarget.moduleName.toString());
+				//trace("SEE : " + evnt.currentTarget.moduleName.toString() +" "+ evnt.currentTarget.getChildAt(0));
+
+			}
+			private function subMenuRollOutHandler(evnt:Event):void
+			{
+				if(Canvas(evnt.currentTarget).styleName != "subMenuItemSelected")
+					Canvas(evnt.currentTarget).styleName = "subMenuItem";
+			}
+			private function subMenuRollOverHandler(evnt:Event):void
+			{
+				if(Canvas(evnt.currentTarget).styleName != "subMenuItemSelected")
+					Canvas(evnt.currentTarget).styleName = "subMenuItemRollOver";
+			}
+		]]>
+	</mx:Script>
+	<mx:HBox id="subMenuBar" width="100%" paddingTop="5"  paddingLeft="5" horizontalGap="-1" styleName="subMenuBar"  backgroundColor="#ffffff" >
+
+	</mx:HBox>
+</mx:Canvas>
